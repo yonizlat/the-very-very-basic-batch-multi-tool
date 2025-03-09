@@ -1,6 +1,6 @@
 @echo off
 
-title The Nigger Multi Tool
+title The Multi Tool
 chcp 65001 
 :start
 cls
